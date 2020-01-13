@@ -9,4 +9,5 @@ import com.sbt.web.dto.User;
 @MapperScan
 public interface UserMapper {
 	public List<User> getAllUser() throws Exception;
+	public User getUserByUsername(String username);
 }

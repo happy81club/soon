@@ -17,4 +17,8 @@ public class UserService {
 	public List<User> getAll() throws Exception{
 		return userMapper.getAllUser();
 	}
+	
+	public User getUserByUsername(String username) {
+		return userMapper.getUserByUsername(username);
+	}
 }

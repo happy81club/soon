@@ -7,4 +7,10 @@
 		FROM soon.users
 	</select>
 
+	<select id="getUserByUsername" parameterType="String" resultType="com.sbt.web.dto.User">
+		SELECT username, password, `role`, enabled
+		FROM soon.users
+		WHERE username = #{username}
+	</select>
+
 </mapper>
