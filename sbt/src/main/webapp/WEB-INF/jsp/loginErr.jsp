@@ -9,12 +9,9 @@
 </head>
 <body>
 
-<div class="login_append">
-	<span><a href="/logout">로그아웃</a></span>
-</div>
 
 <div class="inner_login">
-	  <span style="color: orange;font-size: 25px;"><c:out value="${username}"/></span> 님이 로그인 하였습니다.
+	  <span style="color: orange;font-size: 25px;"><c:out value="${username}"/></span> 유저를 찾을 수 없습니다.
 </div>
 
 

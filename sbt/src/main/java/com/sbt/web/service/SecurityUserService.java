@@ -23,8 +23,13 @@ public class SecurityUserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		System.out.println("SecurityUserService ..................");
+		
 		User user = userService.getUserByUsername(username);
-		System.out.println("userPassword >> " + user.getPassword());
+		
+		if (user == null){
+			System.out.println(username + " 유저를 찾을 수 없습니다. ");
+			throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
+		}
 		
 		return new SecurityUser(user);
 	}

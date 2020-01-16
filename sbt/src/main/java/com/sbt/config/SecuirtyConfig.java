@@ -1,11 +1,15 @@
 package com.sbt.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import com.sbt.handler.CustomAuthenticationFailHandler;
 
 
 @Configuration 
@@ -28,11 +32,21 @@ public class SecuirtyConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginPage("/login")
 			.loginProcessingUrl("/loginProcess")
+			.failureHandler(authenticationFailureHandler())
 			.defaultSuccessUrl("/hello")  
 			.permitAll()
 			.and()
-			.logout().permitAll().logoutSuccessUrl("/");
+			.logout()
+			.logoutUrl("/logout")
+			.permitAll()
+			.logoutSuccessUrl("/");
 	}
+	
+	@Bean
+	AuthenticationFailureHandler authenticationFailureHandler() {
+	    return new CustomAuthenticationFailHandler();
+	}
+
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
