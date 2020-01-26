@@ -27,7 +27,7 @@
 			<c:forEach var="board"  items="${list}" varStatus="status">
 				<tr>
 					<td><c:out value="${status.count}"/></td>
-					<td><c:out value="${board.title }"/></td>
+					<td><a href="<c:url value="boardView?articleNumber=${board.articleNumber }"/>"><c:out value="${board.title }"/></a></td>
 					<td><c:out value="${board.writer }"/></td>
 					<td><c:out value="${board.registrationTime }"/></td>
 				</tr>

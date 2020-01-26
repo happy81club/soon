@@ -29,6 +29,8 @@ public class HelloController {
 	public String home(Principal principal, Model model) {
 		
 		if(null != principal) {
+			
+			model.addAttribute("username", principal.getName());
 			return "hello";
 		}
 		

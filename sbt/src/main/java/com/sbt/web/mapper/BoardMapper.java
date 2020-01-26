@@ -19,4 +19,6 @@ public interface BoardMapper {
 	
 	public List<Board> listBoard() throws Exception;
 	
+	public Board selectDetail(Board board) throws Exception;
+	
 }

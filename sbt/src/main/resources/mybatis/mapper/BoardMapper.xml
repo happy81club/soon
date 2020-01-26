@@ -57,5 +57,22 @@
 		  and group_hierarchy = 0
 	</select>
 	
+	
+	<select id="selectDetail" parameterType="com.sbt.web.dto.Board" resultType="com.sbt.web.dto.Board">
+		select
+			article_number,
+			title,
+			content,
+			writer,
+			DATE_FORMAT(registration_time, '%Y-%m-%d %H:%i:%s') registrationTime,
+			DATE_FORMAT(modification_time, '%Y-%m-%d %H:%i:%s') modificationTime ,
+			group_number,
+			group_order,
+			group_hierarchy
+		from
+			soon.notice_board
+		where article_number =  #{articleNumber}
+	</select>
+	
 
 </mapper>

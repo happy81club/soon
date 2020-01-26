@@ -34,4 +34,11 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	public Board selectDetail(Board board) throws Exception {
+		
+		Board result =  boardMapper.selectDetail(board);
+				
+		return result;
+	}
 }

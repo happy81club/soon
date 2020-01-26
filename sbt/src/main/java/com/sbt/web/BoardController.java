@@ -21,14 +21,14 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	
+	// 게시글 작성뷰
 	@RequestMapping(value="user/boardWriter")
 	public String boardWriter(@ModelAttribute Board board, Model model) throws Exception {
 		
-		
 		return "board/boardWriter";
 	}
-
+	
+	// 게시글 작성Proc
 	@RequestMapping(value="user/procWriter")
 	public String procWriter(@ModelAttribute Board board, Model model) throws Exception {
 		
@@ -37,12 +37,40 @@ public class BoardController {
 		return "redirect:boardList";
 	}
 	
+	// 게시글 상세뷰
+	@RequestMapping(value="user/boardView")
+	public String boardView(@ModelAttribute Board board, Model model) throws Exception {
+		
+		
+		Board view = boardService.selectDetail(board);
+		
+		if(null != view) {
+			//view.setContent(view.getContent().replace("\r\n", "<br>"));
+			
+			board.setGroupNumber(view.getGroupNumber());
+			board.setGroupOrder(view.getGroupOrder());
+			board.setGroupHierarchy(view.getGroupHierarchy());
+		}
+		
+		model.addAttribute("board", view);
+		
+		return "board/boardView";
+	}
+
+	// 게시글 수정뷰
 	@RequestMapping(value="user/boardModifiy")
-	public String boardModifiy(HttpServletRequest request, Model model) throws Exception {
+	public String boardModifiy(@ModelAttribute Board board, Model model) throws Exception {
+		
+		Board view = boardService.selectDetail(board);
+		
+		if(null != view) {
+			model.addAttribute("board", view);
+		}
 		
 		return "board/boardModifiy";
 	}
 	
+	// 게시글 리스트뷰
 	@RequestMapping(value="user/boardList")
 	public String boardList(HttpServletRequest request, Model model) throws Exception {
 		
@@ -53,6 +81,13 @@ public class BoardController {
 		model.addAttribute("list", list);
 		
 		return "board/boardList";
+	}
+	
+	// 게시판 샘플
+	@RequestMapping(value="user/boardSample")
+	public String boardboardSample(HttpServletRequest request, Model model) throws Exception {
+		
+		return "board/boardSample";
 	}
 
 }
