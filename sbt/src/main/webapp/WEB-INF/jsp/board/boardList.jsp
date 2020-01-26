@@ -18,31 +18,22 @@
 	        <th>제목</th>
 	        <th>작성자</th>
 	        <th>날짜</th>
-	        <th>조회수</th>
 	    </tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>1</td>
-			<td>부트스트랩 예제입니다.</td>
-			<td>쑤니</td>
-			<td>2020.01.24</td>
-			<td>1</td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td>부트스트랩 예제입니다.</td>
-			<td>쑤니</td>
-			<td>2020.01.24</td>
-			<td>1</td>
-		</tr>
-		<tr>
-			<td>3</td>
-			<td>부트스트랩 예제입니다.</td>
-			<td>쑤니</td>
-			<td>2020.01.24</td>
-			<td>1</td>
-		</tr>
+		<c:choose>
+			<c:when test="${list eq null }"></c:when>
+			<c:otherwise>
+			<c:forEach var="board"  items="${list}" varStatus="status">
+				<tr>
+					<td><c:out value="${status.count}"/></td>
+					<td><c:out value="${board.title }"/></td>
+					<td><c:out value="${board.writer }"/></td>
+					<td><c:out value="${board.registrationTime }"/></td>
+				</tr>
+			</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</tbody>
 	</table>	
 

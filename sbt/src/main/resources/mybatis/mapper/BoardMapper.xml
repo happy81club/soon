@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sbt.web.mapper.BoardMapper">
+	<insert id="insertBoardWrite" useGeneratedKeys="true" keyProperty="articleNumber">
+		insert
+			into soon.notice_board (
+			title,
+			content,
+			writer,
+			registration_time,
+			modification_time,
+			group_number,
+			group_order,
+			group_hierarchy
+			)
+		values
+		(
+			#{title},
+			#{content},
+			#{writer},
+			current_timestamp,
+			current_timestamp,
+			0,
+			0,
+			0
+		)
+	</insert>
+	
+	<select id="selectKey" resultType="int">
+		select max(article_number) article_number
+		  from soon.notice_board
+	</select>
+	
+	<update id="updateGroupNumber" parameterType="com.sbt.web.dto.Board">
+		update
+			soon.notice_board
+		set
+			group_number = #{groupNumber}
+		where
+			article_number = #{articleNumber}
+	</update>
+	
+	<select id="listBoard" resultType="com.sbt.web.dto.Board">
+		select
+			article_number,
+			title,
+			content,
+			writer,
+			DATE_FORMAT(registration_time, '%Y-%m-%d %H:%i:%s') registrationTime,
+			DATE_FORMAT(modification_time, '%Y-%m-%d %H:%i:%s') modificationTime ,
+			group_number,
+			group_order,
+			group_hierarchy
+		from
+			soon.notice_board
+		where group_order     = 0
+		  and group_hierarchy = 0
+	</select>
 	
 
 </mapper>

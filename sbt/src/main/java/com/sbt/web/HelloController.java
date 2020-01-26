@@ -26,7 +26,11 @@ public class HelloController {
 	UserService userService;
 	
 	@RequestMapping(value="/")
-	public String home(Model model) {
+	public String home(Principal principal, Model model) {
+		
+		if(null != principal) {
+			return "hello";
+		}
 		
 		return "login";
 	}
