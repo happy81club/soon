@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -22,6 +23,7 @@ public class DatabaseConfig {
 		sessionFactory.setDataSource(customDataSource);
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		sessionFactory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
+		sessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); // Mybatis에서 테이블의 언더바 컬럼을 카멜형식으로 변환해주는 설정
 		return sessionFactory.getObject();
 	}
 
