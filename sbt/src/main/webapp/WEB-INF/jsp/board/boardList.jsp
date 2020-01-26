@@ -29,7 +29,7 @@
 					<td><c:out value="${status.count}"/></td>
 					<td><a href="<c:url value="boardView?articleNumber=${board.articleNumber }"/>"><c:out value="${board.title }"/></a></td>
 					<td><c:out value="${board.writer }"/></td>
-					<td><c:out value="${board.registrationTime }"/></td>
+					<td><c:out value="${board.modificationTime }"/></td>
 				</tr>
 			</c:forEach>
 			</c:otherwise>

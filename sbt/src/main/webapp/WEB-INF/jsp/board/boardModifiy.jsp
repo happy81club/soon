@@ -17,7 +17,12 @@
 	<div class="row">
 		<div class="col-12">
 			
-			<form:form id="modifyForm" name="modifyForm" modelAttribute="board" action="/user/procModify" method="post">
+			<form:form id="modifyForm" name="modifyForm" modelAttribute="board" action="/user/procModifiy" method="post">
+			<form:hidden path="articleNumber"/>
+			<form:hidden path="groupNumber"/>
+			<form:hidden path="groupOrder"/>
+			<form:hidden path="groupHierarchy"/>
+			
 			<table class="table table-striped">
 			<thead>
 			    <tr>
@@ -65,8 +70,10 @@
 			window.location.href="<c:url value='boardList' />"; // /user/boardList
 		});
 		// 수정
-		$('#btnSave').click(function(){
-			$('#writeForm').submit();
+		$('#btnModify').click(function(){
+			if(confirm("수정하시겠습니까?")) {
+				$('#modifyForm').submit();
+			}
 		});
 	});
 </script>

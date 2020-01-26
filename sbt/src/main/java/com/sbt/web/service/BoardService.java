@@ -27,6 +27,15 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public Board procBoardModifiy(Board board) throws Exception {
+		
+		boardMapper.updateModify(board);
+		
+		Board result = boardMapper.selectDetail(board);
+		
+		return result;
+	}
 	
 	public List<Board> listBoard() throws Exception {
 		
@@ -40,5 +49,9 @@ public class BoardService {
 		Board result =  boardMapper.selectDetail(board);
 				
 		return result;
+	}
+	
+	public int deleteBoard(int articleNumber) throws Exception {
+		return boardMapper.deleteBoard(articleNumber);
 	}
 }

@@ -74,5 +74,24 @@
 		where article_number =  #{articleNumber}
 	</select>
 	
+	<update id="updateModify" parameterType="com.sbt.web.dto.Board">
+		update
+			soon.notice_board
+		set
+			title   = #{title},
+			content = #{content},
+			modification_time = current_timestamp
+		where
+			article_number = #{articleNumber}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete
+		from
+			soon.notice_board
+		where
+			article_number = #{articleNumber}
+	</delete>
+	
 
 </mapper>

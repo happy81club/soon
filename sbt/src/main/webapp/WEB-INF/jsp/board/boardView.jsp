@@ -18,7 +18,7 @@
 		<div class="col-12">
 		
 		<form:form id="viewForm" name="viewForm" modelAttribute="board" action="boardModifiy" method="post">
-			<form:hidden path="articleNumber"/>
+			<form:hidden path="articleNumber" id="articleNumber"/>
 			<form:hidden path="groupNumber"/>
 			<form:hidden path="groupOrder"/>
 			<form:hidden path="groupHierarchy"/>
@@ -60,6 +60,7 @@
 		<hr/>
 		
 		<button id="btnList" type="button" class="btn pull-right">목록</button>
+		<button id="btnDelete" type="button" class="btn btn-info pull-right">삭제</button>
 		<button id="btnModify" type="button" class="btn btn-primary pull-right">수정</button>
 		
 		</div><!-- class="col-12" -->
@@ -80,6 +81,14 @@
 		// 수정
 		$('#btnModify').click(function(){
 			$('#viewForm').submit();
+		});
+		// 삭제
+		$('#btnDelete').click(function(){
+			var articleNumber = $('#articleNumber').val();
+			if(confirm("삭제하시겠습니까?")) {
+				//window.location.href = "procDelete?articleNumber=" + articleNumber;
+				window.location.href = "<c:url value="procDelete?articleNumber="/>" + articleNumber;
+			}
 		});
 	});
 </script>
