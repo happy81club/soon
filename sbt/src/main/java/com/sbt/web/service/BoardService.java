@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sbt.web.dto.Board;
 import com.sbt.web.mapper.BoardMapper;
@@ -14,6 +15,7 @@ public class BoardService {
 	@Autowired
 	BoardMapper boardMapper;
 	
+	@Transactional
 	public int procBoardWrite(Board board) throws Exception {
 		int result = 0;
 		
@@ -27,7 +29,8 @@ public class BoardService {
 		
 		return result;
 	}
-
+	
+	
 	public Board procBoardModifiy(Board board) throws Exception {
 		
 		boardMapper.updateModify(board);

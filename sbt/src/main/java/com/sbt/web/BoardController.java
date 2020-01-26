@@ -6,11 +6,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sbt.web.dto.Board;
@@ -23,6 +26,7 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
+	
 	// 게시글 작성뷰
 	@RequestMapping(value="user/boardWriter")
 	public String boardWriter(@ModelAttribute Board board, Model model) throws Exception {
@@ -34,7 +38,12 @@ public class BoardController {
 	@RequestMapping(value="user/procWriter")
 	public String procWriter(@ModelAttribute Board board, Model model) throws Exception {
 		
-		boardService.procBoardWrite(board);
+		try {
+			boardService.procBoardWrite(board);
+		}catch (Exception e) {
+			model.addAttribute("errMsg", e.getMessage());
+			return "error";
+		}
 		
 		return "redirect:boardList";
 	}
