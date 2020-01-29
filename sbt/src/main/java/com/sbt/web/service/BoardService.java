@@ -40,9 +40,9 @@ public class BoardService {
 		return result;
 	}
 	
-	public List<Board> listBoard() throws Exception {
+	public List<Board> listBoard(Board board) throws Exception {
 		
-		List<Board> list = boardMapper.listBoard();
+		List<Board> list = boardMapper.listBoard(board);
 		
 		return list;
 	}
@@ -56,5 +56,9 @@ public class BoardService {
 	
 	public int deleteBoard(int articleNumber) throws Exception {
 		return boardMapper.deleteBoard(articleNumber);
+	}
+	
+	public int getNoticeBoardCount(Board board) throws Exception {
+		return boardMapper.getNoticeBoardCount(board);
 	}
 }

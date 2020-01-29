@@ -11,6 +11,25 @@ public class Board {
 	private int groupOrder;
 	private int groupHierarchy;
 	
+	private int rownum;
+	
+	//페이징
+	private int startPage;   // 시작 페이지 번호
+	private int perPageNum;  // 페이지 당 게시물 갯수
+   
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
+	}
+	
 	
 	public int getArticleNumber() {
 		return articleNumber;
@@ -65,6 +84,12 @@ public class Board {
 	}
 	public void setGroupHierarchy(int groupHierarchy) {
 		this.groupHierarchy = groupHierarchy;
+	}
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 	
 

@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><form:input path="writer" class="form-control" type="text" placeholder="작성자을 입력해주세요"/></td>
+			<td><c:out value="${user.username}"/> </td>
 		</tr>
 		<tr>
 			<th>내용</th>

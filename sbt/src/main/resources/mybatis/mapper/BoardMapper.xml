@@ -40,21 +40,33 @@
 			article_number = #{articleNumber}
 	</update>
 	
-	<select id="listBoard" resultType="com.sbt.web.dto.Board">
-		select
-			article_number,
-			title,
-			content,
-			writer,
-			DATE_FORMAT(registration_time, '%Y-%m-%d %H:%i:%s') registrationTime,
-			DATE_FORMAT(modification_time, '%Y-%m-%d %H:%i:%s') modificationTime ,
-			group_number,
-			group_order,
-			group_hierarchy
-		from
-			soon.notice_board
-		where group_order     = 0
+	<select id="listBoard" parameterType="com.sbt.web.dto.Board" resultType="com.sbt.web.dto.Board">
+		select * from (
+			select  	@rownum:=@rownum-1 as rownum,
+			            article_number,
+						title,
+						content,
+						writer,
+						DATE_FORMAT(registration_time, '%Y-%m-%d %H:%i:%s') registrationTime,
+						DATE_FORMAT(modification_time, '%Y-%m-%d %H:%i:%s') modificationTime ,
+						group_number,
+						group_order,
+						group_hierarchy				
+			from soon.notice_board nb, 
+			     (select @rownum:=(select count(*) from soon.notice_board)+1) TMP
+			where group_order     = 0   
+			  and group_hierarchy = 0
+			order by article_number desc
+		)tb	
+		where group_order     = 0   
 		  and group_hierarchy = 0
+		limit #{startPage}, #{perPageNum}
+	</select>
+	
+	
+	<select id="getNoticeBoardCount" parameterType="com.sbt.web.dto.Board" resultType="int">
+		select count(*) cnt
+		  from soon.notice_board
 	</select>
 	
 	

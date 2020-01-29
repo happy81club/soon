@@ -21,10 +21,12 @@ public interface BoardMapper {
 
 	public Board procBoardModifiy(Board board) throws Exception;
 	
-	public List<Board> listBoard() throws Exception;
+	public List<Board> listBoard(Board board) throws Exception;
 	
 	public Board selectDetail(Board board) throws Exception;
 	
 	public int deleteBoard(int articleNumber) throws Exception;
+	
+	public int getNoticeBoardCount(Board board) throws Exception;
 	
 }
