@@ -1,0 +1,43 @@
+@charset "UTF-8";
+body {
+		 margin: 0;
+	}
+	div#wapper {
+		width: 100%;
+		text-align: left;
+		min-height: 300px;
+		margin: 0 auto;
+	    display: inline-block;     
+	}
+	header, footer, nav, aside, section {
+		border: 0px solid #999;
+		margin: 1px;
+		padding: 5px;
+	}
+	header {
+		height: 100px;
+		background-color: #ffffff;
+	}
+	nav, section, aside {
+		float: left;
+		height: auto;
+	}
+	nav {
+		width: 12%;
+	}
+	section {
+		width: 75%; 
+	}
+	aside {
+		width: 5%; 
+	}
+	footer {
+		height: 50px;
+		position: relatiev;
+		clear: both;
+	}
+	article {
+		width: 90%;
+		margin: 20px;
+		background-color: #999;
+	}

@@ -14,7 +14,7 @@
 
 <hr/>
 <div>
-     <span style="color: orange;font-size: 25px;"><c:out value="${username}"/></span> 님이 로그인 하였습니다.
+     <span style="color: orange;font-size: 25px;"><c:out value="${user.username}"/></span> 님이 로그인 하였습니다.
 	 / <span><a href="/logout">로그아웃</a></span>
 </div>
 <hr/>
@@ -33,9 +33,9 @@
 <hr/>
 <pre>
 	■ TO-DO List	
-	1. 게시판 - 댓글 처리, 삭제, 수정
+	1. 게시판 - 댓글 처리, 삭제(완료), 수정(완료)
 	2. 페이징 처리
-	3. 트랜잭션 처리
+	3. 트랜잭션 처리 Exception 처리
 </pre>
 
 	

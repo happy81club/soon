@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 public class LoginController {
@@ -26,9 +27,14 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status) throws Exception {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// SessionStatus는 스프링의 어노테이션으로 지원되는 @SessionAttributes의 세션을 만료시킨다.
+		status.isComplete();
+		if(status.isComplete() == true) {
+			logger.info("세션만료!!!!!!!!!!!!!!!!");
+		}
 		
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
