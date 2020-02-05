@@ -5,11 +5,18 @@
 
 <section>
 <div class="container">
+
+		<div class="col-xs-12" style="margin:15px auto;">
+	        <label style="font-size:20px;"><span class="glyphicon glyphicon-list-alt"></span>게시글 상세</label>
+	    </div>
+
+
 	<table class="table table-striped">
 	<thead>
 	    <tr>
 	        <th>번호</th>
 	        <th>제목</th>
+	        <th>댓글수</th>
 	        <th>작성자</th>
 	        <th>날짜</th>
 	    </tr>
@@ -22,6 +29,7 @@
 				<tr>
 					<td><c:out value="${board.rownum}"/></td>
 					<td><a href="<c:url value="boardView?articleNumber=${board.articleNumber }"/>"><c:out value="${board.title }"/></a></td>
+					<td><c:out value="${board.replyNum }"/></td>
 					<td><c:out value="${board.writer }"/></td>
 					<td><c:out value="${board.modificationTime }"/></td>
 				</tr>

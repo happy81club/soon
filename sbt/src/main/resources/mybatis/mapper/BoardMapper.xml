@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sbt.web.mapper.BoardMapper">
+	<!-- 원글 Insert -->
 	<insert id="insertBoardWrite" useGeneratedKeys="true" keyProperty="articleNumber">
 		insert
 			into soon.notice_board (
@@ -26,11 +27,39 @@
 		)
 	</insert>
 	
+	<!-- 댓글 Insert -->
+	<insert id="insertComment" useGeneratedKeys="true" keyProperty="articleNumber">
+		insert
+			into soon.notice_board (
+			title,
+			content,
+			writer,
+			registration_time,
+			modification_time,
+			group_number,
+			group_order,
+			group_hierarchy
+			)
+		values
+		(
+			#{title},
+			#{content},
+			#{writer},
+			current_timestamp,
+			current_timestamp,
+			#{groupNumber},       /* 원글article_number */
+			#{groupOrder} + 1,    /* 원글+1 */
+			#{groupHierarchy} + 1 /* 원글+1 */
+		)
+	</insert>
+	
+	<!-- pk값 조회(auto-increment value)  -->
 	<select id="selectKey" resultType="int">
 		select max(article_number) article_number
 		  from soon.notice_board
 	</select>
 	
+	<!-- 원글insert 후 pk값을 select 한 후 group_number 를 변경해준다. -->
 	<update id="updateGroupNumber" parameterType="com.sbt.web.dto.Board">
 		update
 			soon.notice_board
@@ -39,6 +68,19 @@
 		where
 			article_number = #{articleNumber}
 	</update>
+	
+	<!-- 댓글의 그룹순서 update  -->
+	<update id="updateCommentGroupOrder">
+		update
+			soon.notice_board
+		set
+			group_order    = group_order + 1
+			
+		where group_number = #{groupNumber} /*원글(부모글)*/
+		  and group_order  > #{groupOrder}  /*원글(부모글)*/
+			
+	</update>
+
 	
 	<select id="listBoard" parameterType="com.sbt.web.dto.Board" resultType="com.sbt.web.dto.Board">
 		select * from (
@@ -51,7 +93,8 @@
 						DATE_FORMAT(modification_time, '%Y-%m-%d %H:%i:%s') modificationTime ,
 						group_number,
 						group_order,
-						group_hierarchy				
+						group_hierarchy,
+						(select count(*) cnt from soon.notice_board where group_number = nb.article_number and group_order > 0 ) replyNum			
 			from soon.notice_board nb, 
 			     (select @rownum:=(select count(*) from soon.notice_board)+1) TMP
 			where group_order     = 0   
@@ -63,10 +106,32 @@
 		limit #{startPage}, #{perPageNum}
 	</select>
 	
+	<!-- 댓글 list -->
+	<select id="listCommnets" parameterType="com.sbt.web.dto.Board" resultType="com.sbt.web.dto.Board">
+		select
+			article_number,
+			title,
+			content,
+			writer,
+			registration_time,
+			modification_time,
+			group_number,
+			group_order,
+			group_hierarchy
+		from
+			soon.notice_board
+		where 	
+		 	group_number      = ${groupNumber}
+		 and group_hierarchy  > 0
+		 order by group_order, group_hierarchy
+	</select>
+	
 	
 	<select id="getNoticeBoardCount" parameterType="com.sbt.web.dto.Board" resultType="int">
 		select count(*) cnt
 		  from soon.notice_board
+		 where group_order     = 0   
+		   and group_hierarchy = 0
 	</select>
 	
 	

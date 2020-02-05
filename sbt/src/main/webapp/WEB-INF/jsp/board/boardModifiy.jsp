@@ -6,6 +6,12 @@
 <section>
 
 <div class="container">
+
+	<div class="col-xs-12" style="margin:15px auto;">
+        <label style="font-size:20px;"><span class="glyphicon glyphicon-list-alt"></span>게시글 수정</label>
+    </div>
+
+
 	<div class="row">
 		<div class="col-12">
 			

@@ -1,0 +1,21 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1. Mysql 아래와 같은 에러 메세지 (https://jojoldu.tistory.com/417)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ -  Caused by: java.sql.SQLException: Failed to read auto-increment value from storage engine
+ 
+이는 Mysql 테이블의 상태값 중 auto-increment 에 문제가 발생했기 때문입니다.
+문제에 대한 확인은 아래 쿼리로 확인합니다.
+
+use 데이터베이스명;                     ==>> No database selected Error 경우(사용할 데이터베이스명을 선택해준다.)
+show table status like '테이블명';
+---------------------------------------------------
+ ex >> 
+ 	use soon;
+	show table status like 'notice_board';
+---------------------------------------------------
+
+	 Auto_increment 필드값과 테이블의 값이 다름. 테이블pk + 1 로 되어야함.
+	 
+ => 해결법: 강제로 최신 id값을 가진 row를 등록하여 status를 갱신하는 것
+ 
+ insert into table (pk필드) values (최신 PK +1);

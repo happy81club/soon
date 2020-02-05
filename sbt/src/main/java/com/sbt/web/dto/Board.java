@@ -12,6 +12,7 @@ public class Board {
 	private int groupHierarchy;
 	
 	private int rownum;
+	private int replyNum;
 	
 	//페이징
 	private int startPage;   // 시작 페이지 번호
@@ -88,8 +89,8 @@ public class Board {
 	public int getRownum() {
 		return rownum;
 	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
+	public int getReplyNum() {
+		return replyNum;
 	}
 	
 

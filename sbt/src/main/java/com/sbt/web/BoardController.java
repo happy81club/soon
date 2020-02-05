@@ -53,6 +53,26 @@ public class BoardController {
 		return "redirect:boardList";
 	}
 	
+	// 댓글작성Proc
+	@RequestMapping(value="user/procComment")
+	public String procComment(@ModelAttribute Board board,
+			@ModelAttribute User user,
+			Model model) throws Exception {
+		
+		try {
+			
+			board.setWriter(user.getUsername());         // 로그인정보
+			board.setTitle("댓글:" + board.getTitle());
+			boardService.procBoardComment(board);
+			
+		}catch (Exception e) {
+			model.addAttribute("errMsg", e.getMessage());
+			return "error";
+		}
+		
+		return "redirect:boardView?articleNumber=" + board.getGroupNumber();
+	}
+	
 	// 게시글 상세뷰
 	@RequestMapping(value="user/boardView")
 	public String boardView(@ModelAttribute Board board,
@@ -63,6 +83,7 @@ public class BoardController {
 			board.setArticleNumber(articleNumber);
 		}
 		
+		List<Board> cmmntList = new ArrayList<Board>(); 
 		Board view = boardService.selectDetail(board);
 		
 		if(null != view) {
@@ -71,9 +92,14 @@ public class BoardController {
 			board.setGroupNumber(view.getGroupNumber());
 			board.setGroupOrder(view.getGroupOrder());
 			board.setGroupHierarchy(view.getGroupHierarchy());
+
+			cmmntList = boardService.listCommnets(view); 
+			
 		}
+
+		model.addAttribute("cmmntList", cmmntList);
 		
-		model.addAttribute("board", view);
+		model.addAttribute("view", view);
 		
 		return "board/boardView";
 	}
