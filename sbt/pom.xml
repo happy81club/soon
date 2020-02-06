@@ -98,6 +98,17 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-security</artifactId>
 	    </dependency>
+	    
+	    <!-- DB Logback -->
+	    <!-- DB Logback 기본 logback 은 포함되어 있으나,  -->
+	    <!-- jdbc에 대한 logback 설정은 되어 있지 않기 때문에 이 부분은 추가로 설정해 줍니다. -->
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+            <version>1.16</version>
+        </dependency>
+        <!-- DB Logback -->
+
         
         
 	</dependencies>
