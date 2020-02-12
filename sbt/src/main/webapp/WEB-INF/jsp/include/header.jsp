@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="_csrf_token" content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <meta charset="ko">
 <title>home</title>
 <link rel="stylesheet" href="<c:url value="/css/layout.css"/>">
@@ -17,7 +20,7 @@
 	<div id="wapper">
 		<header>
 			<div>
-			     <span style="color: orange;font-size: 25px;"><c:out value="${user.username}"/></span> 님이 로그인 하였습니다.
+			     <span style="color: orange;font-size: 25px;"><c:out value="${loginVO.username}"/></span> 님이 로그인 하였습니다.
 				 / <span><a href="/logout">로그아웃</a></span>
 			</div>
 		</header>
