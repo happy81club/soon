@@ -17,7 +17,7 @@ import com.sbt.web.service.TestService;
 import com.sbt.web.service.UserService;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes("loginVO")
 public class HelloController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
@@ -45,9 +45,11 @@ public class HelloController {
 	@RequestMapping(value="/hello")
 	public String hello(Principal principal, Model model) throws Exception {
 		
+		logger.info("hello......................................");
+		
 		User user = new User();
 		user.setUsername(principal.getName());
-		model.addAttribute("user", user);
+		model.addAttribute("loginVO", user);
 		
 		model.addAttribute("username", principal.getName());
 		

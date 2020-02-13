@@ -14,7 +14,7 @@
 
 <hr/>
 <div>
-     <span style="color: orange;font-size: 25px;"><c:out value="${user.username}"/></span> 님이 로그인 하였습니다.
+     <span style="color: orange;font-size: 25px;"><c:out value="${loginVO.username}"/></span> 님이 로그인 하였습니다.
 	 / <span><a href="/logout">로그아웃</a></span>
 </div>
 <hr/>
@@ -25,6 +25,7 @@
 		<tbody>
 			<tr><td><a href="<c:url value="/user/boardList"/>">게시판 예제</a></td></tr>
 			<tr><td><a href="<c:url value="/user/boardSample"/>">샘플</a></td></tr>
+			<tr><td><a href="<c:url value="/lotto/main"/>">로또 예제</a></td></tr>
 		</tbody>
 		</table>	
 	</div>

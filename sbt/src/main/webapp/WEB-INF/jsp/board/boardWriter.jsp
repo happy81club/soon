@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><c:out value="${user.username}"/> </td>
+			<td><c:out value="${loginVO.username}"/> </td>
 		</tr>
 		<tr>
 			<th>내용</th>

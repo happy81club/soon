@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,23 +23,10 @@ public class LottoController {
 	@RequestMapping(value="/lotto/main")
 	public String main(Model model) throws Exception {
 		
-       List<Integer> lottoNum = new ArrayList<Integer>();
-		
-		// List 안에 로또번호 추가 
-		for (int i = 1; i <= 45; i++) {
-			lottoNum.add(i); 
-		} 
-		
-		// set안의 수를 무작위로 섞는다
-		Collections.shuffle(lottoNum);
-		// 정렬 
-		Collections.sort(lottoNum); 
-		
-		model.addAttribute("lottoNum", lottoNum);
-		
 		return "/lotto/lottoMain";
 	}
 	
+	@SuppressWarnings({ "unused", "null" })
 	@RequestMapping(value="/lotto/createLotto" , method = RequestMethod.POST)
 	public  @ResponseBody Lotto createLotto(Lotto lotto) throws Exception {
 		
@@ -72,12 +58,8 @@ public class LottoController {
 		
 		// 로또 번호 섞기
 		Collections.shuffle(lottoNum);
-		logger.info("1번섞기 : " + lottoNum);
-		Collections.shuffle(lottoNum);
-		logger.info("2번섞기 : " + lottoNum);
-		Collections.shuffle(lottoNum);
-		logger.info("3번섞기 : " + lottoNum);
-		
+
+
 		// 번호뽑기
 		int[] lottoNums = new int[6];
 		for (int i = 0; i < 6; i++) {

@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="_csrf_token" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<meta name="_csrf_token" content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <meta charset="ko">
 <title>home</title>
 <link rel="stylesheet" href="<c:url value="/css/layout.css"/>">
@@ -16,6 +16,7 @@
 </head>
 <body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>	
+<script type="text/javascript" src="<c:url value="/js/common.js"/>"></script> 
 
 	<div id="wapper">
 		<header>
