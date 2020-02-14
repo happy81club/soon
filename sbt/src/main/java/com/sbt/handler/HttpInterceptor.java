@@ -1,5 +1,6 @@
 package com.sbt.handler;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,14 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.sbt.web.dto.User;
-
 @Component
-public class HttpInterceptor extends HandlerInterceptorAdapter {
+public class HttpInterceptor extends HandlerInterceptorAdapter implements SessionNames{
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
@@ -25,12 +24,19 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
 		logger.info("preHandle................................");
 		
 		HttpSession session = request.getSession();
-        User loginVO = (User) session.getAttribute("loginVO");
- 
-		/*
-		 * if(ObjectUtils.isEmpty(loginVO)){ response.sendRedirect("/login"); return
-		 * false; }else{ session.setMaxInactiveInterval(30*60); return true; }
-		 */
+        if(session.getAttribute(LOGIN) != null) {
+        	session.removeAttribute(LOGIN);
+        }
+        
+        if(session.getAttribute(LOGIN) == null) {
+        	String uri = request.getRequestURI();
+        	String query = request.getQueryString();
+        	if(!StringUtils.isEmpty(query)) {
+        		uri += "?" + query;
+        		session.setAttribute(ATTEMPTED, uri);
+        		response.sendRedirect("/login");
+        	}
+        }
         
         return true;
 	}
@@ -40,6 +46,28 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("postHandle................................");
+		
+		HttpSession session = request.getSession();
+		
+		Object user = modelAndView.getModelMap().get("loginVO");
+		
+		if(user != null) {
+			session.setAttribute(LOGIN, user);
+			
+			logger.info("Cookie setting ................................");
+			Cookie loginCookie = new Cookie(LOGIN_COOKIE, session.getId());
+			loginCookie.setPath("/"); // naver.com/도메인별로 생김.
+			loginCookie.setMaxAge(7 * 24 * 60 * 60);
+			
+			response.addCookie(loginCookie);
+		}
+		
+		String attempted = (String)session.getAttribute(ATTEMPTED);
+		if(!StringUtils.isEmpty(attempted)) {
+			response.sendRedirect(attempted);
+			session.removeAttribute(ATTEMPTED);
+		}
+		
 	}
 
 	@Override
